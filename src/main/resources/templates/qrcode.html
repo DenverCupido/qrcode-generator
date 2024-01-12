@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a QR Code</title>
+</head>
+<body>
+<br>
+
+<form th:action="@{/generate}" th:object="${qrdata}" method="POST">
+
+    <div>
+        <input name="qrType" th:each="tempType : ${types}" type="radio" th:id="${tempType}" th:field="*{type}" th:value="${tempType}" th:text="${tempType}" onclick="displayFields();"/><br>
+
+        <br>
+        <br>
+        <div>
+        <div id="plain-text" style="display:none">
+            <input type="text" placeholder="Enter your text" th:field="*{inputText}">
+            <br>
+            <br>
+        </div>
+        <div id="email" style="display:none">
+            <input type="text" placeholder="Enter email address" th:field="*{eMail.email}">
+            <br>
+            <br>
+        </div>
+
+        <div id="veeCard" style="display:none">
+            <input type="text" placeholder="Enter name" th:field="*{vCard.name}"><br><br>
+            <input type="text" placeholder="Enter cell number" th:field="*{vCard.phoneNumber}"><br><br>
+            <input type="text" placeholder="Enter email address" th:field="*{vCard.email}"><br><br>
+            <input type="text" placeholder="Enter title" th:field="*{vCard.title}"><br><br>
+            <input type="text" placeholder="Enter company name" th:field="*{vCard.company}" ><br><br>
+            <input type="text" placeholder="Enter website" th:field="*{vCard.website}"><br><br>
+            <br>
+        </div>
+
+        <div id="cell" style="display:none">
+            <input type="text" placeholder="Enter cell" th:field="*{telephone.telephone}">
+            <br>
+            <br>
+        </div>
+        </div>
+    </div>
+
+    <input type="submit"/>
+    <br>
+    <br>
+    QR Code will appear here:
+    <br>
+    <img th:src="*{imageText}">
+</form>
+
+
+<script type="text/javascript">
+
+    function displayFields() {
+        if (document.getElementById('Text').checked) {
+            document.getElementById('plain-text').style.display = 'block';
+            document.getElementById('email').style.display = 'none';
+            document.getElementById('veeCard').style.display = 'none';
+            document.getElementById('cell').style.display = 'none';
+
+        } else if (document.getElementById('Mail').checked) {
+            document.getElementById('plain-text').style.display = 'none';
+            document.getElementById('email').style.display = 'block';
+            document.getElementById('veeCard').style.display = 'none';
+            document.getElementById('cell').style.display = 'none';
+
+
+        } else if (document.getElementById('vCard').checked) {
+            document.getElementById('plain-text').style.display = 'none';
+            document.getElementById('email').style.display = 'none';
+            document.getElementById('veeCard').style.display = 'block';
+            document.getElementById('cell').style.display = 'none';
+
+        } else if (document.getElementById('Cell').checked) {
+            document.getElementById('plain-text').style.display = 'none';
+            document.getElementById('email').style.display = 'none';
+            document.getElementById('veeCard').style.display = 'none';
+            document.getElementById('cell').style.display = 'block';
+        }
+    }
+
+</script>
+
+</body>
+</html>
