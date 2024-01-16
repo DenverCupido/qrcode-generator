@@ -21,14 +21,14 @@ public class Controller {
         this.qrCodeTypes = qrCodeTypes;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String qrCode(Model model) {
         model.addAttribute("qrdata", new QRData());
         model.addAttribute("types", qrCodeTypes);
         return "qrcode";
     }
 
-    @PostMapping("/generate")
+    @PostMapping("/")
     public String generate(@ModelAttribute("qrdata") QRData qrData, Model model) {
 
         String code = qrDAO.generateQRCode(qrData);

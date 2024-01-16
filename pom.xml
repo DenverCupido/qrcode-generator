@@ -11,7 +11,7 @@
 
     <groupId>com.dfc</groupId>
     <artifactId>qrcode-generator</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>qrcode-generator</name>
     <description>QR Code Generator</description>

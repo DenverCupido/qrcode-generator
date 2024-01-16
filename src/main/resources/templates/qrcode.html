@@ -5,77 +5,99 @@
     <title>Create a QR Code</title>
 </head>
 <body>
-<br>
+<h1>QR Code Generator</h1>
 
-<form th:action="@{/generate}" th:object="${qrdata}" method="POST">
+<form th:action="@{/}" th:object="${qrdata}" method="POST">
 
-    <div>
-        <input name="qrType" th:each="tempType : ${types}" type="radio" th:id="${tempType}" th:field="*{type}" th:value="${tempType}" th:text="${tempType}" onclick="displayFields();"/><br>
-
-        <br>
-        <br>
+    <section>
         <div>
-        <div id="plain-text" style="display:none">
-            <input type="text" placeholder="Enter your text" th:field="*{inputText}">
-            <br>
-            <br>
-        </div>
-        <div id="email" style="display:none">
-            <input type="text" placeholder="Enter email address" th:field="*{eMail.email}">
-            <br>
-            <br>
-        </div>
 
-        <div id="veeCard" style="display:none">
-            <input type="text" placeholder="Enter name" th:field="*{vCard.name}"><br><br>
-            <input type="text" placeholder="Enter cell number" th:field="*{vCard.phoneNumber}"><br><br>
-            <input type="text" placeholder="Enter email address" th:field="*{vCard.email}"><br><br>
-            <input type="text" placeholder="Enter title" th:field="*{vCard.title}"><br><br>
-            <input type="text" placeholder="Enter company name" th:field="*{vCard.company}" ><br><br>
-            <input type="text" placeholder="Enter website" th:field="*{vCard.website}"><br><br>
-            <br>
-        </div>
+            <fieldset>
+                <legend>Populate your QR Code data</legend>
+                QR Code Type :
+                <br>
+                <br>
+                <select id="qrType" th:field="*{type}" onchange="displayFields();">
+                <option th:id="${tempType}" th:each="tempType : ${types}" th:value="${tempType}"
+                        th:text="${tempType}"
+                        th:selected="${tempType == types[0]}"></option>
+            </select>
 
-        <div id="cell" style="display:none">
-            <input type="text" placeholder="Enter cell" th:field="*{telephone.telephone}">
-            <br>
-            <br>
-        </div>
-        </div>
-    </div>
+                <br>
+                <br>
 
-    <input type="submit"/>
+                <div>
+                    <div id="plain-text" style="display:block">
+                        <input type="text" placeholder="Enter your text" th:field="*{inputText}">
+                        <br>
+
+                    </div>
+                    <div id="email" style="display:none">
+                        <input type="text" placeholder="Enter email address" th:field="*{eMail.email}">
+                        <br>
+
+                    </div>
+
+                    <div id="veeCard" style="display:none">
+                        <input type="text" placeholder="Enter name" th:field="*{vCard.name}"><br><br>
+                        <input type="text" placeholder="Enter cell number" th:field="*{vCard.phoneNumber}"><br><br>
+                        <input type="text" placeholder="Enter email address" th:field="*{vCard.email}"><br><br>
+                        <input type="text" placeholder="Enter title" th:field="*{vCard.title}"><br><br>
+                        <input type="text" placeholder="Enter company name" th:field="*{vCard.company}"><br><br>
+                        <input type="text" placeholder="Enter website" th:field="*{vCard.website}"><br><br>
+                    </div>
+
+                    <div id="cell" style="display:none">
+                        <input type="text" placeholder="Enter cell" th:field="*{telephone.telephone}">
+                        <br>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </section>
     <br>
-    <br>
-    QR Code will appear here:
-    <br>
-    <img th:src="*{imageText}">
+    <section>
+
+        <p>After entering your data, click <em><strong>Submit</strong></em> below</p>
+        <input type="submit"/>
+        <input type="reset"/>
+        <br>
+        <br>
+        <fieldset>
+            <legend>QR Code will appear here</legend>
+            <img id ="image" th:src="*{imageText}">
+        </fieldset>
+
+    </section>
+
 </form>
 
 
 <script type="text/javascript">
 
     function displayFields() {
-        if (document.getElementById('Text').checked) {
+        var select = document.getElementById("qrType");
+
+        if (select.value == 'Text') {
             document.getElementById('plain-text').style.display = 'block';
             document.getElementById('email').style.display = 'none';
             document.getElementById('veeCard').style.display = 'none';
             document.getElementById('cell').style.display = 'none';
 
-        } else if (document.getElementById('Mail').checked) {
+        } else if (select.value == 'Mail') {
             document.getElementById('plain-text').style.display = 'none';
             document.getElementById('email').style.display = 'block';
             document.getElementById('veeCard').style.display = 'none';
             document.getElementById('cell').style.display = 'none';
 
 
-        } else if (document.getElementById('vCard').checked) {
+        } else if (select.value == 'vCard') {
             document.getElementById('plain-text').style.display = 'none';
             document.getElementById('email').style.display = 'none';
             document.getElementById('veeCard').style.display = 'block';
             document.getElementById('cell').style.display = 'none';
 
-        } else if (document.getElementById('Cell').checked) {
+        } else if (select.value == 'Cell') {
             document.getElementById('plain-text').style.display = 'none';
             document.getElementById('email').style.display = 'none';
             document.getElementById('veeCard').style.display = 'none';
@@ -83,6 +105,10 @@
         }
     }
 
+    function reset(){
+        document.getElementById("qrType").value = 'Text'
+        document.getElementById("qrType").src = '*{imageText}'
+    }
 </script>
 
 </body>
