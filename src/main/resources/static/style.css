@@ -1,0 +1,27 @@
+body {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 200%;
+    padding-left: 350px;
+    padding-top: 50px;
+    max-width: 1200px;
+    background-image: url("background.jpg");
+}
+
+.center {
+    width: 50%;
+    text-align: center;
+
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    background-color: lavender;
+}
+
+.input-form {
+    background-color: lavender;
+    width: 100%;
+}

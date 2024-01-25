@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "floriancupido/qrcode-generator:latest",
+    "Name": "floriancupido/qrcode-generator",
     "Update": "true"
   },
   "Ports": [

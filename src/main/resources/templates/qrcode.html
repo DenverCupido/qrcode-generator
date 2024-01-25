@@ -1,75 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Create a QR Code</title>
 </head>
 <body>
-<h1>QR Code Generator</h1>
 
-<form th:action="@{/}" th:object="${qrdata}" method="POST">
 
-    <section>
-        <div>
+<form th:action="@{/}" th:object="${qrdata}" method="POST" class="center">
 
+    <article class="input-form">
+        <h1>QR Code Generator</h1>
+        <section>
+            <div>
+
+                <fieldset>
+                    <legend>Populate your QR Code data</legend>
+                    QR Code Type :
+                    <br>
+                    <br>
+                    <select id="qrType" th:field="*{type}" onchange="displayFields();">
+                        <option th:id="${tempType}" th:each="tempType : ${types}" th:value="${tempType}"
+                                th:text="${tempType}"
+                                th:selected="${tempType == types[0]}"></option>
+                    </select>
+
+                    <br>
+                    <br>
+
+                    <div>
+                        <div id="plain-text" style="display:block">
+                            <input type="text" placeholder="Enter your text" th:field="*{inputText}">
+                            <br>
+
+                        </div>
+                        <div id="email" style="display:none">
+                            <input type="text" placeholder="Enter email address" th:field="*{eMail.email}">
+                            <br>
+
+                        </div>
+
+                        <div id="veeCard" style="display:none">
+                            <input type="text" placeholder="Enter name" th:field="*{vCard.name}"><br><br>
+                            <input type="text" placeholder="Enter cell number" th:field="*{vCard.phoneNumber}"><br><br>
+                            <input type="text" placeholder="Enter email address" th:field="*{vCard.email}"><br><br>
+                            <input type="text" placeholder="Enter title" th:field="*{vCard.title}"><br><br>
+                            <input type="text" placeholder="Enter company name" th:field="*{vCard.company}"><br><br>
+                            <input type="text" placeholder="Enter website" th:field="*{vCard.website}"><br><br>
+                        </div>
+
+                        <div id="cell" style="display:none">
+                            <input type="text" placeholder="Enter cell" th:field="*{telephone.telephone}">
+                            <br>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+        <br>
+        <section>
+
+            <p>After entering your data, click <em><strong>Submit</strong></em> below</p>
+            <input type="submit"/>
+            <input type="reset"/>
+            <br>
+            <br>
             <fieldset>
-                <legend>Populate your QR Code data</legend>
-                QR Code Type :
-                <br>
-                <br>
-                <select id="qrType" th:field="*{type}" onchange="displayFields();">
-                <option th:id="${tempType}" th:each="tempType : ${types}" th:value="${tempType}"
-                        th:text="${tempType}"
-                        th:selected="${tempType == types[0]}"></option>
-            </select>
-
-                <br>
-                <br>
-
-                <div>
-                    <div id="plain-text" style="display:block">
-                        <input type="text" placeholder="Enter your text" th:field="*{inputText}">
-                        <br>
-
-                    </div>
-                    <div id="email" style="display:none">
-                        <input type="text" placeholder="Enter email address" th:field="*{eMail.email}">
-                        <br>
-
-                    </div>
-
-                    <div id="veeCard" style="display:none">
-                        <input type="text" placeholder="Enter name" th:field="*{vCard.name}"><br><br>
-                        <input type="text" placeholder="Enter cell number" th:field="*{vCard.phoneNumber}"><br><br>
-                        <input type="text" placeholder="Enter email address" th:field="*{vCard.email}"><br><br>
-                        <input type="text" placeholder="Enter title" th:field="*{vCard.title}"><br><br>
-                        <input type="text" placeholder="Enter company name" th:field="*{vCard.company}"><br><br>
-                        <input type="text" placeholder="Enter website" th:field="*{vCard.website}"><br><br>
-                    </div>
-
-                    <div id="cell" style="display:none">
-                        <input type="text" placeholder="Enter cell" th:field="*{telephone.telephone}">
-                        <br>
-                    </div>
-                </div>
+                <legend>QR Code will appear here</legend>
+                <img id="image" th:src="*{imageText}">
             </fieldset>
-        </div>
-    </section>
-    <br>
-    <section>
 
-        <p>After entering your data, click <em><strong>Submit</strong></em> below</p>
-        <input type="submit"/>
-        <input type="reset"/>
-        <br>
-        <br>
-        <fieldset>
-            <legend>QR Code will appear here</legend>
-            <img id ="image" th:src="*{imageText}">
-        </fieldset>
-
-    </section>
-
+        </section>
+    </article>
 </form>
 
 
